@@ -1747,6 +1747,16 @@ function download_subtitles()
   
   subfile:flush()
   subfile:close()
+
+  subfile = io.open(target, 'r')
+  subs = subfile:read("*all")
+  subfile:close()
+
+  subfile = io.open(target, 'w')
+  content = string.gsub(subs, "[0-9]+\n[^\n]*\n[^\n]*\n?[^\n]*OpenSubtitles[^\n]*\n", "")
+  subfile:write(content)
+  subfile:flush()
+  subfile:close()
   
   stream = nil
   collectgarbage()
